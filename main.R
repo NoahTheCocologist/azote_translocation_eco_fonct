@@ -60,3 +60,29 @@ model2<-lm(NRE~shade_group, data=nre_df)
 
 summary(model2)
 visreg(model2)
+
+reabs_df <- full_df %>%
+  select(tree_id, species, shade_group, ech, n, carbone) %>%
+  pivot_wider(
+    names_from = ech,
+    values_from = c(n, carbone),
+    names_prefix = "ech"
+  ) %>%
+  mutate(
+    NRE = (1 - (n_ech2 / n_ech1)) * 100, # Réabsorption azote non corrigée
+    
+    NRE_corr = (1 - ((n_ech2 / carbone_ech2) /
+                       (n_ech1 / carbone_ech1))) * 100, # Réabsorption azote corrigée par le carbone
+    
+    CRE = (1 - (carbone_ech2 / carbone_ech1)) * 100  # Changement du carbone ##pas sur
+  )
+
+
+model3<-lm(NRE~shade_group, data=reabs_df) #ici nre est pas corrigée
+summary(model2)
+
+model4<-lmer(NRE~shade_group+(1|species), data=reabs_df)
+summary(model4)
+
+model5<-lmer(NRE_corr~shade_group+(1|species), data=reabs_df)
+summary(model5)
