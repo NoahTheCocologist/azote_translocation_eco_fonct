@@ -29,8 +29,10 @@ nc_df<-full_df %>%
 #variables
 hist(nc_df$nc)
 plot(shade_group,nc,data=nc_df)
-?plot
+ggplot(nc_df, aes(shade_group, nc))
+?ggplot
 
 model1<-lmer(nc ~ ech * shade_group + (1|tree_id), 
              data=nc_df)
 summary(model1)
+visreg(model1)

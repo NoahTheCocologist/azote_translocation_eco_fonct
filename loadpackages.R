@@ -7,10 +7,10 @@ library(dplyr)
 #library(stringr)
 library(tidyr)
 #library(readxl)
-#library(ggplot2)
+library(ggplot2)
 library(data.table)
 #library(purrr)
-#library(visreg) #library(visreg) peut faire visualisation + prendre en compte les covariable
+library(visreg) #library(visreg) peut faire visualisation + prendre en compte les covariable
 #library(MuMIn)
 #library(ggeffects)
 #library(broom)
