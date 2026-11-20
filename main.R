@@ -20,3 +20,17 @@ mid_df <- small_df %>% #separatn tree_id info into sep columns for
 
 full_df<-mid_df %>%
   left_join(shade_group_df, by='species')
+
+nc_df<-full_df %>%
+  mutate(
+    nc= full_df$n/full_df$carbone
+  )
+
+#variables
+hist(nc_df$nc)
+plot(shade_group,nc,data=nc_df)
+?plot
+
+model1<-lmer(nc ~ ech * shade_group + (1|tree_id), 
+             data=nc_df)
+summary(model1)
